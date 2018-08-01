@@ -12,3 +12,18 @@
 > 此函数将信号机制重设防止第三方修改。
 
 防止`die()`输出失败，`sanitize_stdfds()`将没打开的stderr设向`/dev/null`。
+
+`git_resolve_executable_dir()`寻找执行文件目录。procfs可以通过`/proc/self/exe`找到自己执行文件。
+
+`git_setup_gettext()`
+
+
+
+
+
+## 附
+
+### strbuf
+
+- `strbuf_detach()`: 返回原内容，清空缓存
+- `strbuf_grow()`: 分配、重分配以增长
