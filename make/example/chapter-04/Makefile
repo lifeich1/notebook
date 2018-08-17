@@ -23,7 +23,7 @@ sub3-hello: sub3-hello.o
 
 .PHONY: clean
 
-clean:
+clean::
 	-rm -f *.o
 	-rm -f */*.o
 	-rm -f $(EXES)
@@ -33,3 +33,23 @@ pre-gtest: clean sub1/sub1-hello.o sub0/sub0-hello.o
 	-find . -name "*.c" -exec touch {} \;
 	-sleep 1
 	-make sub3/sub3-hello.o
+
+
+# 2. -l<library> 依赖项
+# 实验库依赖规则
+#
+# touch lib%.c 再 make exhello 测试依赖更新
+#
+
+BINFILES2 := libexamplehello.so exhello
+
+all: $(BINFILES2)
+
+exhello: exhello.c -lexamplehello
+	$(CC) $^ -o $@
+
+libexamplehello.so: examplehello.c
+	$(CC) -shared -fPIC -o $@ $^
+
+clean::
+	-rm -f $(BINFILES2)

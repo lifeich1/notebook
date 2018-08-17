@@ -10,3 +10,6 @@
 
 配置项`vpath <pattern> <directories>`设置符合pattern的文件的搜索路径。
 
+### 库依赖规则
+
+在规则的依赖列表中添加`-l<name>`，自动搜索`lib<name>.a`或`lib<name>.so`作为真正的依赖。变量`.LIBPATTERNS`设置库文件名匹配规则（例如`lib%.so lib%.a`）。
