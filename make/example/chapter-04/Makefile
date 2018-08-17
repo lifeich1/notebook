@@ -28,11 +28,11 @@ clean::
 	-rm -f */*.o
 	-rm -f $(EXES)
 
-pre-gtest: clean sub1/sub1-hello.o sub0/sub0-hello.o
-	-sleep 1
-	-find . -name "*.c" -exec touch {} \;
-	-sleep 1
-	-make sub3/sub3-hello.o
+pre-gtest: sub1/sub1-hello.o sub0/sub0-hello.o
+	-rm -f *.o
+	sleep 1
+	find . -name "*.c" -exec touch {} \;
+	make sub3/sub3-hello.o
 
 
 # 2. -l<library> 依赖项
