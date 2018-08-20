@@ -37,3 +37,14 @@ TARGETS ...: TARGET-PATTERN: PREREQ-PATTERNS ...
 - 加入pattern规则，利用`cc -MM`功能生成子makefile
 - 将生成规则导入主makefile
 - 令子makefile依赖于自动生成的头文件，使用remake机制自动循环更新
+
+## 第五章
+
+### Recipes 的执行与 .ONESHELL
+
+每一行recipe在不打开`.ONESHELL`开关的情况下，都会新建一个子shell来(在沙箱中)执行。
+因此默认上，recipe并不适合脚本。
+
+oneshell下，只有第一行会检查特殊前缀字符(@,-,+)，并移除。但对POSIX风格的shell则是例外，和非oneshell一样每行检查。
+
+另外，正常下make检查每行recipe的返回值，但oneshell只能检测最后的返回值，其中行为有很大的差异。
