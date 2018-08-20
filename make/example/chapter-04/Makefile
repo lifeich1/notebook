@@ -1,4 +1,4 @@
-# 1. 搜索路径实验
+## 1. 搜索路径实验
 # sub0 与 sub1 差别在GPATH，导致rebuild路径不同
 # sub0 与 sub3 差别在于是否过时，sub0 rebuild 导致对象文件路径不类似
 # sub2 展示vpath配置项
@@ -35,7 +35,7 @@ pre-gtest: sub1/sub1-hello.o sub0/sub0-hello.o
 	make sub3/sub3-hello.o
 
 
-# 2. -l<library> 依赖项
+## 2. -l<library> 依赖项
 # 实验库依赖规则
 #
 # touch lib%.c 再 make exhello 测试依赖更新
@@ -53,3 +53,29 @@ libexamplehello.so: examplehello.c
 
 clean::
 	-rm -f $(BINFILES2)
+
+
+## 3. 自动头文件依赖生成
+# coco
+# .d : 依赖生成文件
+
+all: coco
+coco: coco.o
+
+coco.d: %.d:%.c
+	@set -e; rm -f $@; \
+		$(CC) -MM $< > $@.$$$$; \
+		sed 's,\($*\).o[ :]*,\1.o $@ :,g' < $@.$$$$ > $@; \
+		rm -rf $@.$$$$
+
+include coco.d
+
+.PHONY: change-coco
+change-coco:
+	@set -e;\
+		sed 's,if 0,if t,;s,if 1,if 0,;s,if t,if 1,;' coco.h > coco.$$$$; \
+		mv coco.$$$$ coco.h
+
+clean::
+	-rm -f coco
+	-rm -f *.$$$$

@@ -4,3 +4,6 @@
 *.o
 *.so
 *.a
+
+# autogen make prerequisites file
+*.d
