@@ -1,0 +1,36 @@
+[[TODO]]
+
+* TOC
+
+[[build ninja]]
+[[ninja]]
+
+* build ninja
+
+** configure script
+
+*** class "Platform"
+
+utilize to access platform-specify properties.
+
+*** class "Bootstrap"
+
+expand variables to form build command and run those one by one, while
+pass actions to ninja syntax writer at the same time.
+
+*** main process
+
+generate main program build rules first. if "--bootstrap" is set, use
+class Bootstrap to build bootstrap ninja executables. 
+
+after that, fall back to syntax writer when necessary, then output
+rules for test programs and etc.
+
+* ninja
+
+<<TODO>>
+
+* ninja lexer
+
+* 
+
